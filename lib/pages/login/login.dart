@@ -67,6 +67,7 @@ class _LoginState extends State<Login> {
                             _isPwdFocus = false;
                             _isPhoneFocus = false;
                           });
+                          _loginSubmit();
                         },
                       ),
                       Container(
@@ -245,7 +246,7 @@ class _LoginState extends State<Login> {
       myToast(msg: "账号密码错误");
       return;
     } else {
-      Navigator.pushNamed(context, '/dataAnalysis', arguments: 1000);
+      Navigator.of(context).pushReplacementNamed('/dataAnalysis',arguments: 100000);
     }
   }
 }

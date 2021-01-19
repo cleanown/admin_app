@@ -11,7 +11,6 @@ final routes = {
 // ignore: top_level_function_literal_block
 var onGenerateRoute = (RouteSettings settings) {
   final String name = settings.name;
-  print(settings);
   // ignore: non_constant_identifier_names
   final Function PageContentBuilder = routes[name];
   final Route route = MaterialPageRoute(builder: (context) => PageContentBuilder(context, arguments: settings.arguments));

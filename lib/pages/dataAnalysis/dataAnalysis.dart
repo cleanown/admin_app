@@ -24,8 +24,7 @@ class _DataAnalysisState extends State<DataAnalysis> {
             ),
           ),
           onTap: () {
-            print(widget.arguments);
-            // Navigator.pop(context);
+            Navigator.of(context).pushReplacementNamed('/');
           },
         ),
       ),
