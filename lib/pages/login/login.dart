@@ -245,7 +245,7 @@ class _LoginState extends State<Login> {
       myToast(msg: "账号密码错误");
       return;
     } else {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => DataAnalysis()));
+      Navigator.pushNamed(context, '/dataAnalysis', arguments: 1000);
     }
   }
 }

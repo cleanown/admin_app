@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class DataAnalysis extends StatefulWidget {
+  final arguments;
+  DataAnalysis({
+    this.arguments,
+  });
   @override
   _DataAnalysisState createState() => _DataAnalysisState();
 }
@@ -20,7 +24,8 @@ class _DataAnalysisState extends State<DataAnalysis> {
             ),
           ),
           onTap: () {
-            Navigator.pop(context);
+            print(widget.arguments);
+            // Navigator.pop(context);
           },
         ),
       ),
