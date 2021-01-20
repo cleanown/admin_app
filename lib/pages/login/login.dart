@@ -1,4 +1,5 @@
-import 'package:admin_app/pages/dataAnalysis/dataAnalysis.dart';
+import 'package:admin_app/request/request.dart';
+import 'package:admin_app/request/url.dart';
 import 'package:admin_app/utils/myToast.dart';
 import 'package:flutter/material.dart';
 
@@ -231,7 +232,8 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-  void _loginSubmit () {
+  void _loginSubmit () async {
+    String text = "abC";
     print(_phone.text);
     print(_pwd.text);
     if (_phone.text.isEmpty) {
@@ -242,11 +244,23 @@ class _LoginState extends State<Login> {
       myToast(msg: "密码不得为空");
       return;
     }
-    if (_phone.text != "18320166299" && _pwd.text != "lingji1688") {
-      myToast(msg: "账号密码错误");
-      return;
-    } else {
+    var res = await httpRequest(
+      url: "login",
+      type: "post",
+      data: {
+        "client_id": "lingji-admin",
+        "client_secret": "a123456",
+        "grant_type": "password",
+        "username": _phone.text,
+        "password": _pwd.text,
+      },
+    );
+    print(res);
+    if (res.data["code"] == 0) {
+      myToast(msg: "登录成功");
       Navigator.of(context).pushReplacementNamed('/dataAnalysis',arguments: 100000);
+    } else {
+      myToast(msg: res.data["msg"]);
     }
   }
 }
