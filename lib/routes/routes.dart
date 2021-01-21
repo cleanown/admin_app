@@ -18,6 +18,7 @@ RouteFactory onGenerateRoute = (RouteSettings settings) {
     return route;
   } else {
     myToast(msg: '路由错误');
+    print("路由错误===> $name");
     return null;
   }
 };

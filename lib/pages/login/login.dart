@@ -1,5 +1,4 @@
 import 'package:admin_app/request/request.dart';
-import 'package:admin_app/request/url.dart';
 import 'package:admin_app/utils/myToast.dart';
 import 'package:flutter/material.dart';
 
@@ -233,9 +232,6 @@ class _LoginState extends State<Login> {
     );
   }
   void _loginSubmit () async {
-    String text = "abC";
-    print(_phone.text);
-    print(_pwd.text);
     if (_phone.text.isEmpty) {
       myToast(msg: "手机号不得为空");
       return;
@@ -244,6 +240,7 @@ class _LoginState extends State<Login> {
       myToast(msg: "密码不得为空");
       return;
     }
+    print("走起");
     var res = await httpRequest(
       url: "login",
       type: "post",
@@ -255,12 +252,15 @@ class _LoginState extends State<Login> {
         "password": _pwd.text,
       },
     );
-    print(res);
-    if (res.data["code"] == 0) {
+    if ((res as ErrorEntity) != null) {
+      print("----------------");
+      print((res as ErrorEntity));
+      print("----------------");
+    }
+    if (res["code"] == 0) {
       myToast(msg: "登录成功");
       Navigator.of(context).pushReplacementNamed('/dataAnalysis',arguments: 100000);
     } else {
-      myToast(msg: res.data["msg"]);
     }
   }
 }
