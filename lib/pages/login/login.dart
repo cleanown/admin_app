@@ -226,30 +226,6 @@ class _LoginState extends State<Login> {
                     _loginSubmit();
                   },
                 ),
-                RaisedButton(
-                  child: Text(
-                    '存储',
-                    style: TextStyle(
-                        color: Colors.white
-                    ),
-                  ),
-                  color: Colors.blue,
-                  onPressed: () {
-                    _putSubmit();
-                  },
-                ),
-                RaisedButton(
-                  child: Text(
-                    '获取',
-                    style: TextStyle(
-                        color: Colors.white
-                    ),
-                  ),
-                  color: Colors.blue,
-                  onPressed: () {
-                    _getSubmit();
-                  },
-                ),
               ],
             ),
           ),
@@ -282,19 +258,11 @@ class _LoginState extends State<Login> {
           _isPhoneFocus = false;
           _isPwdFocus = false;
         });
-        FocusScope.of(context).unfocus();
+        FocusScope.of(context).unfocus();//关闭键盘
         myToast(msg: "登录成功");
-        print(res['result']['access_token']);
-        // Navigator.of(context).pushReplacementNamed('/dataAnalysis',arguments: 100000);
+        StorageUtil().setString("token", res['result']['access_token']);
+        Navigator.of(context).pushReplacementNamed('/dataAnalysis',arguments: 100000);
       },
     );
-  }
-
-  void _putSubmit () async {
-    StorageUtil.initialize();
-  }
-  void _getSubmit () async {
-    StorageUtil().putString("aaa", "value");
-    print(StorageUtil().getString("aaa"));
   }
 }

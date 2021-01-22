@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class DataAnalysis extends StatefulWidget {
   final arguments;
   DataAnalysis({
