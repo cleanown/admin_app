@@ -6,11 +6,9 @@ import 'package:flutter/cupertino.dart';
 
 httpRequest ({
   @required String url,
-  String type,
+  @required String type,
   Object data,
   bool isJson = false,
-  void success(Object res),
-  void error(Exception e),
 }) async {
   Dio dio = Dio(
     new BaseOptions(
@@ -26,8 +24,8 @@ httpRequest ({
       return response;
     },
     onError: (DioError e) {//捕获异常
-      error(createErrorEntity(e));
-      return;
+      ErrorEntity eInfo = createErrorEntity(e);
+      return eInfo;
     },
   ));
   Response res = Response();
@@ -38,15 +36,27 @@ httpRequest ({
     option.contentType = ContentType.parse("application/x-www-form-urlencoded").toString();
   }
   String reqType = type.toLowerCase();//传参转换为小写,根据type定义请求方式
-  if (reqType == 'post') {
-    res = await dio.post(lingJi(url),data: data, options: option);
+  if (reqType == 'get') {
+    try {
+
+      res = await dio.get(lingJi(url),queryParameters: data,options: option);
+    } on DioError catch (e) {
+      return createErrorEntity(e);
+    }
+  } else if (reqType == 'post') {
+    try {
+      res = await dio.post(lingJi(url),data: data, options: option);
+    } on DioError catch (e) {
+      return createErrorEntity(e);
+    }
   } else {
-    res = await dio.get(lingJi(url),queryParameters: data,options: option);
+    myToast(msg: "请求方式错误");
+    print("请求方式错误(未找到)===> $reqType");
   }
-  success(res.data);
+  return res.data;
 }
 
-ErrorEntity createErrorEntity(DioError error) {//异常判断
+ErrorEntity createErrorEntity(DioError error) {
   ErrorEntity res;
   switch (error.type) {
     case DioErrorType.CONNECT_TIMEOUT:
@@ -58,7 +68,7 @@ ErrorEntity createErrorEntity(DioError error) {//异常判断
   return res;
 }
 
-class ErrorEntity implements Exception {//定义异常工具类
+class ErrorEntity implements Exception {
   int code;
   String message;
   ErrorEntity({this.code,this.message});

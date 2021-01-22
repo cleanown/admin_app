@@ -241,7 +241,7 @@ class _LoginState extends State<Login> {
       return;
     }
     print("走起");
-    var res = await httpRequest(
+    httpRequest(
       url: "login",
       type: "post",
       data: {
@@ -251,16 +251,15 @@ class _LoginState extends State<Login> {
         "username": _phone.text,
         "password": _pwd.text,
       },
+      success: (res) {
+        print("successsuccesssuccess${res}");
+        print(res);
+      },
+      error: (e){
+        print("errorerrorerrorerror${e}");
+      }
     );
-    if ((res as ErrorEntity) != null) {
-      print("----------------");
-      print((res as ErrorEntity));
-      print("----------------");
-    }
-    if (res["code"] == 0) {
-      myToast(msg: "登录成功");
-      Navigator.of(context).pushReplacementNamed('/dataAnalysis',arguments: 100000);
-    } else {
-    }
+
+    // Navigator.of(context).pushReplacementNamed('/dataAnalysis',arguments: 100000);
   }
 }
