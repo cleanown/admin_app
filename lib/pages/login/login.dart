@@ -1,5 +1,6 @@
 import 'package:admin_app/request/request.dart';
-import 'package:admin_app/utils/myToast.dart';
+import 'package:admin_app/utils/StorageUtil.dart';
+import 'package:admin_app/utils/MyToast.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -8,6 +9,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
   TextEditingController _phone = TextEditingController();
   bool _isPhoneSuffix = false;
   bool _isPhoneFocus = false;
@@ -223,7 +225,31 @@ class _LoginState extends State<Login> {
                   onPressed: () {
                     _loginSubmit();
                   },
-                )
+                ),
+                RaisedButton(
+                  child: Text(
+                    '存储',
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
+                  ),
+                  color: Colors.blue,
+                  onPressed: () {
+                    _putSubmit();
+                  },
+                ),
+                RaisedButton(
+                  child: Text(
+                    '获取',
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
+                  ),
+                  color: Colors.blue,
+                  onPressed: () {
+                    _getSubmit();
+                  },
+                ),
               ],
             ),
           ),
@@ -231,6 +257,7 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
   void _loginSubmit () async {
     if (_phone.text.isEmpty) {
       myToast(msg: "手机号不得为空");
@@ -240,7 +267,6 @@ class _LoginState extends State<Login> {
       myToast(msg: "密码不得为空");
       return;
     }
-    print("走起");
     httpRequest(
       url: "login",
       type: "post",
@@ -252,14 +278,23 @@ class _LoginState extends State<Login> {
         "password": _pwd.text,
       },
       success: (res) {
-        print("successsuccesssuccess${res}");
-        print(res);
+        setState(() {
+          _isPhoneFocus = false;
+          _isPwdFocus = false;
+        });
+        FocusScope.of(context).unfocus();
+        myToast(msg: "登录成功");
+        print(res['result']['access_token']);
+        // Navigator.of(context).pushReplacementNamed('/dataAnalysis',arguments: 100000);
       },
-      error: (e){
-        print("errorerrorerrorerror${e}");
-      }
     );
+  }
 
-    // Navigator.of(context).pushReplacementNamed('/dataAnalysis',arguments: 100000);
+  void _putSubmit () async {
+    StorageUtil.initialize();
+  }
+  void _getSubmit () async {
+    StorageUtil().putString("aaa", "value");
+    print(StorageUtil().getString("aaa"));
   }
 }

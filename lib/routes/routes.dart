@@ -1,7 +1,7 @@
 
 import 'package:admin_app/pages/dataAnalysis/dataAnalysis.dart';
 import 'package:admin_app/pages/login/login.dart';
-import 'package:admin_app/utils/myToast.dart';
+import 'package:admin_app/utils/MyToast.dart';
 import 'package:flutter/material.dart';
 
 final routes = {

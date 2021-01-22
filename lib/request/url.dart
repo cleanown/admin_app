@@ -1,9 +1,10 @@
-import 'package:admin_app/utils/myToast.dart';
+import 'package:admin_app/utils/MyToast.dart';
 
-final String baseUrl = "http://192.168.1.238:8001";
+final String baseUrl = "http://192.168.1.239:8001";
 const Url = {
   //登录
   "login": "/api/oauth/token",//登录
+  "batchCreateThirdInventory": "/api/thirdApi/batchCreateThirdInventory",//登录
 };
 String lingJi (String str) {
   if (Url[str] == null) {

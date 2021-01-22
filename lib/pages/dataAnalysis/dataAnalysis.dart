@@ -23,7 +23,7 @@ class _DataAnalysisState extends State<DataAnalysis> {
               fontSize: 50,
             ),
           ),
-          onTap: () {
+          onTap: () async {
             Navigator.of(context).pushReplacementNamed('/');
           },
         ),
