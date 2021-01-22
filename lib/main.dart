@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
-  Global.init();
+  Global.init();//全局初始化
 }
 
 class MyApp extends StatelessWidget {
