@@ -1,3 +1,4 @@
+import 'package:admin_app/request/request.dart';
 import 'package:flutter/material.dart';
 class DataAnalysis extends StatefulWidget {
   final arguments;
@@ -24,6 +25,12 @@ class _DataAnalysisState extends State<DataAnalysis> {
           ),
           onTap: () async {
             Navigator.of(context).pushReplacementNamed('/');
+            httpRequest(
+              url: "menu_list",
+              success: (res) {
+                print(res);
+              }
+            );
           },
         ),
       ),

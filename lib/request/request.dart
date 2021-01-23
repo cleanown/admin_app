@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:admin_app/request/url.dart';
 import 'package:admin_app/utils/MyToast.dart';
+import 'package:admin_app/utils/StorageUtil.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -22,11 +23,15 @@ httpRequest ({
   );
   dio.interceptors.add(InterceptorsWrapper(//请求拦截器
     onRequest: (RequestOptions option) {//拦截请求头, 附带token
+      String token = StorageUtil().get("token");
+      if (token != null) {
+        option.headers["Authorization"] = token;
+      }
       return option;
     },
-    onResponse: (Response response) {//获取返回参数
-      return response;
-    },
+    // onResponse: (Response response) {//获取返回参数
+    //   return response;
+    // },
     onError: (DioError e) {//捕获异常
       error(createErrorEntity(error: e,isStatusToast: isStatusToast,isCodeToast: isCodeToast));
       return;
@@ -34,15 +39,16 @@ httpRequest ({
   ));
   Response res = Response();
   Options option = new Options();
-  if (isJson) {//根据传参isJson设定请求类型
+  //根据传参isJson设定请求类型
+  if (isJson) {
     option.contentType = ContentType.parse("application/json").toString();
   } else {
     option.contentType = ContentType.parse("application/x-www-form-urlencoded").toString();
   }
-  String reqType = type.toLowerCase();//传参转换为小写,根据type定义请求方式
-  if (reqType == 'get') {
+  //判断请求类型
+  if (type != null && type.toLowerCase() == 'get') {
     res = await dio.get(lingJi(url),queryParameters: data,options: option);
-  } else if (reqType == 'post') {
+  } else if (type != null && type.toLowerCase() == 'post') {
     res = await dio.post(lingJi(url),data: data, options: option);
   } else {
     res = await dio.get(lingJi(url),queryParameters: data,options: option);

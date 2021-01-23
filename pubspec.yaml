@@ -23,9 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fluttertoast: ^7.1.6
-  dio: 3.0.10
-  shared_preferences: 0.5.12+4
+
+  fluttertoast: ^7.1.6 #消息提示
+  dio: 3.0.10 #网络储存
+  shared_preferences: 0.5.12+4 #数据存储(微)
+  provider: ^4.3.3 #数据存储(以文件方式存储)
 
 
   # The following adds the Cupertino Icons font to your application.

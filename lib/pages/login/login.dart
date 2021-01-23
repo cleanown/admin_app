@@ -260,7 +260,7 @@ class _LoginState extends State<Login> {
         });
         FocusScope.of(context).unfocus();//关闭键盘
         myToast(msg: "登录成功");
-        StorageUtil().setString("token", res['result']['access_token']);
+        StorageUtil().set("token", res['result']['access_token']);
         Navigator.of(context).pushReplacementNamed('/dataAnalysis',arguments: 100000);
       },
     );

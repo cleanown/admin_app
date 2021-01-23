@@ -4,21 +4,26 @@ import 'package:admin_app/pages/login/login.dart';
 import 'package:admin_app/utils/MyToast.dart';
 import 'package:flutter/material.dart';
 
-final routes = {
-  '/': (context, {arguments}) => Login(),
-  '/dataAnalysis': (context, {arguments}) => DataAnalysis(arguments: arguments,),
-};
+class RouterSet {
+  RouterSet._();
+  static RouterSet self = RouterSet._();
+  factory RouterSet() => self;
 
+  static final routes = { //路由列表
+    '/': (context, {arguments}) => Login(),
+    '/dataAnalysis': (context, {arguments}) => DataAnalysis(arguments: arguments,),
+  };
 
-RouteFactory onGenerateRoute = (RouteSettings settings) {
-  final String name = settings.name;
-  final Function pageContentBuilder = routes[name];
-  if (pageContentBuilder != null) {
-    final Route route = MaterialPageRoute(builder: (context) => pageContentBuilder(context, arguments: settings.arguments));
-    return route;
-  } else {
-    myToast(msg: '路由错误');
-    print("路由错误===> $name");
-    return null;
-  }
-};
+  Function onGenerateRoute = (RouteSettings settings) {//路由跳转
+    final String name = settings.name;
+    final Function pageContentBuilder = routes[name];
+    if (pageContentBuilder != null) {
+      final Route route = MaterialPageRoute(builder: (context) => pageContentBuilder(context, arguments: settings.arguments));
+      return route;
+    } else {
+      myToast(msg: '路由错误');
+      print("路由错误===> $name");
+      return null;
+    }
+  };
+}

@@ -1,10 +1,8 @@
 import 'package:admin_app/routes/routes.dart';
-import 'package:admin_app/utils/Global.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
-  Global.init();//全局初始化
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +15,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: '/',
-      onGenerateRoute: onGenerateRoute,
+      onGenerateRoute: RouterSet().onGenerateRoute,
     );
   }
 }
