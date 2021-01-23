@@ -4,14 +4,17 @@ import 'package:admin_app/pages/login/login.dart';
 import 'package:admin_app/utils/MyToast.dart';
 import 'package:flutter/material.dart';
 
-class RouterSet {
-  RouterSet._();
-  static RouterSet self = RouterSet._();
-  factory RouterSet() => self;
+class Routers {
+  Routers._();
+  static Routers self = Routers._();
+  factory Routers() => self;
+
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey();//定义一个全局关键字,定义在路由,请求的时候401可不带context跳转页面
 
   static final routes = { //路由列表
     '/': (context, {arguments}) => Login(),
-    '/dataAnalysis': (context, {arguments}) => DataAnalysis(arguments: arguments,),
+    '/login': (context, {arguments}) => Login(),
+    '/dataAnalysis': (context, {arguments}) => DataAnalysis(arguments: arguments),
   };
 
   Function onGenerateRoute = (RouteSettings settings) {//路由跳转

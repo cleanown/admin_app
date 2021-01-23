@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:admin_app/request/url.dart';
+import 'package:admin_app/routers/Routers.dart';
 import 'package:admin_app/utils/MyToast.dart';
 import 'package:admin_app/utils/StorageUtil.dart';
 import 'package:dio/dio.dart';
@@ -12,9 +13,13 @@ httpRequest ({
   bool isJson = false,
   isStatusToast = true,
   isCodeToast = true,
-  void success(Map res),
-  void error(Exception e),
+  void beforeRequest(Options options),//请求前钩子(还不会写)
+  void success(Map res),//成功钩子
+  void beforeError(Exception e),//错误前钩子
+  void error(Exception e),//错误钩子
 }) async {
+  Response res = Response();
+  Options option = new Options();
   Dio dio = Dio(
     new BaseOptions(
       connectTimeout: 5000,//连接超时限制
@@ -33,12 +38,17 @@ httpRequest ({
     //   return response;
     // },
     onError: (DioError e) {//捕获异常
-      error(createErrorEntity(error: e,isStatusToast: isStatusToast,isCodeToast: isCodeToast));
-      return;
+      if(beforeError != null){
+        beforeError(e);
+      }else{
+        ErrorEntity errorEntity = createErrorEntity(error: e, isStatusToast: isStatusToast, isCodeToast: isCodeToast);
+        if(error != null) {
+          error(errorEntity);
+        }
+      }
+      return res;
     },
   ));
-  Response res = Response();
-  Options option = new Options();
   //根据传参isJson设定请求类型
   if (isJson) {
     option.contentType = ContentType.parse("application/json").toString();
@@ -54,8 +64,11 @@ httpRequest ({
     res = await dio.get(lingJi(url),queryParameters: data,options: option);
     print("走默认get请求");
   }
-  success(res.data);
+  if (success != null) {
+    success(res.data);
+  }
 }
+
 ErrorEntity createErrorEntity({//异常判断
   @required DioError error,
   bool isStatusToast = true,
@@ -86,7 +99,8 @@ ErrorEntity createErrorEntity({//异常判断
             break;
           case 401:
             res = ErrorEntity(code: 401,message: "无权限");
-            codeMsg = "无权限";
+            codeMsg = "未登录";
+            Routers.navigatorKey.currentState.pushNamedAndRemoveUntil("/login", (route) => false);//未登录直接跳到登录页
             break;
           case 404:
             res = ErrorEntity(code: 404,message: "未找到");
