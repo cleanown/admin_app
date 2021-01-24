@@ -15,19 +15,19 @@ class PrefsUtil {//shared_preferences存储封装
   }
   //存入(各种数据类型)
   setString (String key, String value) async {
-    preferences.setString(key, value);
+    await preferences.setString(key, value);
   }
   setBool (String key, bool value) async {
-    preferences.setBool(key, value);
+    await preferences.setBool(key, value);
   }
   setInt (String key, int value) async {
-    preferences.setInt(key, value);
+    await preferences.setInt(key, value);
   }
   setDouble (String key, double value) async {
-    preferences.setDouble(key, value);
+    await preferences.setDouble(key, value);
   }
   setStringList (String key, List<String> value) async {
-    preferences.setStringList(key, value);
+    await preferences.setStringList(key, value);
   }
 
   //获取(各种数据类型)

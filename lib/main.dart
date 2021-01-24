@@ -1,8 +1,10 @@
 import 'package:admin_app/routers/Routers.dart';
+import 'package:admin_app/utils/Global.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
+  await Global.init();//初始化工具类
 }
 
 class MyApp extends StatelessWidget {
