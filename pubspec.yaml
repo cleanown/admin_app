@@ -23,11 +23,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations: #国际化
+    sdk: flutter
 
   fluttertoast: ^7.1.6 #消息提示
   dio: 3.0.10 #网络储存
   shared_preferences: 0.5.12+4 #数据存储(微)
   provider: ^4.3.3 #数据存储(以文件方式存储)
+  flutter_datetime_picker: ^1.5.0 #时间选择器
+  intl: ^0.16.1 #格式化(例:时间,数字等)
 
 
   # The following adds the Cupertino Icons font to your application.
