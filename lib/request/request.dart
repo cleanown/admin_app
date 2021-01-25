@@ -99,7 +99,7 @@ ErrorEntity createErrorEntity({//异常判断
             break;
           case 401:
             res = ErrorEntity(code: 401,message: "无权限");
-            codeMsg = "未登录";
+            codeMsg = "无权限";
             Routers.navigatorKey.currentState.pushNamedAndRemoveUntil("/login", (route) => false);//未登录直接跳到登录页
             break;
           case 404:
