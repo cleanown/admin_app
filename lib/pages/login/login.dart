@@ -1,6 +1,6 @@
 import 'package:admin_app/request/request.dart';
 import 'package:admin_app/utils/StorageUtil.dart';
-import 'package:admin_app/utils/MyToast.dart';
+import 'package:admin_app/utils/myToast.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
                           '领积信息技术有限公司\n数据汇总',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 18,
                           ),
                         ),
                       )

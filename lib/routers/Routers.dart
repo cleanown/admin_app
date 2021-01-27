@@ -1,7 +1,8 @@
 
 import 'package:admin_app/pages/dataAnalysis/dataAnalysis.dart';
 import 'package:admin_app/pages/login/login.dart';
-import 'package:admin_app/utils/MyToast.dart';
+import 'package:admin_app/pages/test/test.dart';
+import 'package:admin_app/utils/myToast.dart';
 import 'package:flutter/material.dart';
 
 class Routers {
@@ -15,6 +16,7 @@ class Routers {
     '/': (context, {arguments}) => Login(),
     '/login': (context, {arguments}) => Login(),
     '/dataAnalysis': (context, {arguments}) => DataAnalysis(arguments: arguments),
+    '/test': (context, {arguments}) => Test(),
   };
 
   Function onGenerateRoute = (RouteSettings settings) {//路由跳转

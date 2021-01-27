@@ -2,8 +2,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsUtil {//shared_preferences存储封装
   //无参构造
-  PrefsUtil._storage();
-  static PrefsUtil self = PrefsUtil._storage();
+  PrefsUtil._();
+  static PrefsUtil self = PrefsUtil._();
   factory PrefsUtil() => self;
   //定义缓存
   static SharedPreferences preferences;
