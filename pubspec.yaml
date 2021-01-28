@@ -32,8 +32,7 @@ dependencies:
   provider: ^4.3.3 #数据存储(以文件方式存储)
   flutter_datetime_picker: ^1.5.0 #时间选择器
   intl: ^0.16.1 #格式化(例:时间,数字等)
-  charts_flutter: ^0.9.0 #(图表)
-
+  fl_chart: ^0.12.2 #图表
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

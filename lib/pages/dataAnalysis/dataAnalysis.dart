@@ -1,12 +1,10 @@
 import 'package:admin_app/components/charts/MyLineChart.dart';
-import 'package:admin_app/components/charts/MyPieChart.dart';
 import 'package:admin_app/request/request.dart';
 import 'package:admin_app/utils/myToast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 class DataAnalysis extends StatefulWidget {
   final arguments;
@@ -40,45 +38,10 @@ class _DataAnalysisState extends State<DataAnalysis> {
   bool _isTrendEndClose = true;
   Color _trendEndColor = Colors.black;
   //折线图数据
-  bool _isLine = false;
-  List<charts.Series<LineDataFormat, DateTime>> _lineData () {
-    final data = [
-      new LineDataFormat(DateTime(2020,1,10), 1000),
-      new LineDataFormat(DateTime(2020,2,10), 1200),
-      new LineDataFormat(DateTime(2020,3,10), 13000),
-      new LineDataFormat(DateTime(2020,4,10), 1000),
-      new LineDataFormat(DateTime(2020,5,10), 4000),
-      new LineDataFormat(DateTime(2020,6,10), 100),
-    ];
-    return [
-      new charts.Series<LineDataFormat, DateTime>(
-        id: 'sales',
-        domainFn: (LineDataFormat row, _) => row.year,
-        measureFn: (LineDataFormat row, _) => row.sales,
-        data: data,
-      )
-    ];
-  }
+  bool _isLine = true;
+
   //饼图
   bool _isPie = false;
-  List<charts.Series<PieDataFormat, int>> _pieData () {
-    final data = [
-      new PieDataFormat(1, 100),
-      new PieDataFormat(2, 200),
-      new PieDataFormat(3, 300),
-      new PieDataFormat(4, 400),
-      new PieDataFormat(5, 500),
-    ];
-    return [
-      new charts.Series(
-        id: 'Sales',
-        data: data,
-        domainFn: (PieDataFormat test, _) => test.year,
-        measureFn: (PieDataFormat test, _) => test.sales,
-        labelAccessorFn: (PieDataFormat test, _) => '${test.year}: ${test.sales}',
-      )
-    ];
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -1004,7 +967,10 @@ class _DataAnalysisState extends State<DataAnalysis> {
                   child: Visibility(
                     visible: _isLine,
                     replacement: Text('无数据'),
-                    child: MyLineChart(_lineData()),
+                    child: AspectRatio(
+                      aspectRatio: 3/2,
+                      child: MyLineChart()
+                    ),
                   ),
                 ),
               ),
@@ -1239,7 +1205,7 @@ class _DataAnalysisState extends State<DataAnalysis> {
                   child: Visibility(
                     replacement: Text('无数据'),
                     visible: _isPie,
-                    child: MyPieChart(_pieData()),
+                    child: Text('饼图'),
                   ),
                 ),
               ),
