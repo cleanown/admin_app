@@ -967,8 +967,8 @@ class _DataAnalysisState extends State<DataAnalysis> {
                   child: Visibility(
                     visible: _isLine,
                     replacement: Text('无数据'),
-                    child: AspectRatio(
-                      aspectRatio: 3/2,
+                    child: Container(
+                      height: 200,
                       child: MyLineChart()
                     ),
                   ),

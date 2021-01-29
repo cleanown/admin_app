@@ -1,18 +1,50 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 //折线图
 class MyLineChart extends StatefulWidget {
   @override
   _MyLineChartState createState() => _MyLineChartState();
 }
 
+class DataFormat {
+   String _date;
+   double _value;
+
+
+   DataFormat(this._date, this._value);
+
+   String get date => _date;
+
+   set date(String value) {
+     _date = value;
+   }
+
+   double get value => _value;
+
+  set value(double value) {
+    _value = value;
+  }
+}
+
 class _MyLineChartState extends State<MyLineChart> {
+  List<DataFormat> listTest = [
+    DataFormat("2020-1-1",120),
+    DataFormat("2020-2-1",460),
+    DataFormat("2020-3-1",358),
+    DataFormat("2020-4-1",250),
+    DataFormat("2020-5-1",444),
+    DataFormat("2020-6-1",358),
+    DataFormat("2020-7-1",697),
+  ];
   @override
   Widget build(BuildContext context) {
     return LineChart(
       LineChartData(
         lineTouchData: LineTouchData(
-            enabled: false
+            enabled: true,
+            fullHeightTouchLine: true,
+            handleBuiltInTouches: true,
         ),
         gridData: FlGridData(
             show: false
@@ -28,13 +60,17 @@ class _MyLineChartState extends State<MyLineChart> {
             ),
             margin: 10,
             getTitles: (value) {
+              print('===>${value}');
+              // return listTest[value.toInt()];
               switch (value.toInt()) {
+                case 0:
+                  print("listTest[0]._date : "+listTest[0]._date);
+                  print("listTest[0]._value : "+listTest[0]._value.toString());
+                  return listTest[0]._date;
+                case 1:
+                  return listTest[listTest.length~/2]._date;
                 case 2:
-                  return 'SEPT';
-                case 7:
-                  return 'OCT';
-                case 12:
-                  return 'DEC';
+                  return listTest[listTest.length-1]._date;
               }
               return '';
             },
@@ -47,19 +83,20 @@ class _MyLineChartState extends State<MyLineChart> {
               fontSize: 14
             ),
             getTitles: (value) {
-              switch (value.toInt()) {
-                case 1:
-                  return '1m';
-                case 2:
-                  return '2m';
-                case 3:
-                  return '3m';
-                case 4:
-                  return '5m';
-                case 5:
-                  return '6m';
-              }
-              return '';
+              // switch (value.toInt()) {
+              //   case 1:
+              //     return '1m';
+              //   case 2:
+              //     return '2m';
+              //   case 3:
+              //     return '3m';
+              //   case 4:
+              //     return '5m';
+              //   case 5:
+              //     return '6m';
+              // }
+              print(value.toString());
+              return value.toString();
             },
             margin: 8,
             reservedSize: 30
@@ -84,19 +121,15 @@ class _MyLineChartState extends State<MyLineChart> {
           )
         ),
         minX: 0,
-        maxX: 14,
-        maxY: 6,
+        maxX: 3,
+        maxY: 1000,
         minY: 0,
         lineBarsData: [
           LineChartBarData(
             spots: [
-              FlSpot(1, 1),
-              FlSpot(3, 4),
-              FlSpot(5, 1.8),
-              FlSpot(7, 5),
-              FlSpot(10, 2),
-              FlSpot(12, 2.2),
-              FlSpot(13, 1.8),
+              FlSpot(0, listTest[0]._value.toDouble()),
+              FlSpot(1, listTest[1]._value.toDouble()),
+              FlSpot(2, listTest[2]._value.toDouble()),
             ],
             isCurved: true,
             curveSmoothness: 0,
@@ -110,57 +143,11 @@ class _MyLineChartState extends State<MyLineChart> {
             ),
             belowBarData: BarAreaData(
               show: false
-            ),
-          ),
-          LineChartBarData(
-            spots: [
-              FlSpot(1, 1),
-              FlSpot(3, 2.8),
-              FlSpot(5, 1.8),
-              FlSpot(7, 2.5),
-              FlSpot(10, 6.7),
-              FlSpot(12, 2.8),
-              FlSpot(13, 0.8),
-            ],
-            isCurved: true,
-            curveSmoothness: 0,
-            colors: const [
-              Color(0x99aaa4cfc)
-            ],
-            barWidth: 4,
-            isStrokeCapRound: true,
-            dotData: FlDotData(
-              show: false
-            ),
-            belowBarData: BarAreaData(
-              show: false,
-              colors: [Color(0x33aa4cfc)]
-            ),
-          ),
-          LineChartBarData(
-            spots: [
-              FlSpot(1, 3.8),
-              FlSpot(3, 1.98),
-              FlSpot(6, 5),
-              FlSpot(10, 3.3),
-              FlSpot(13, 4.5),
-            ],
-            isCurved: true,
-            curveSmoothness: 0,
-            colors: const [
-              Color(0x444af699)
-            ],
-            barWidth: 4,
-            isStrokeCapRound: true,
-            dotData: FlDotData(
-                show: true
-            ),
-            belowBarData: BarAreaData(
-                show: false
             ),
           ),
         ],
       )
     );
+
   }
 }
