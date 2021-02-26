@@ -62,8 +62,8 @@ class _LoginState extends State<Login> {
                         ),
                         onLongPress: () {
                           setState(() {
-                            _phone.text = "18320166299";
-                            _pwd.text = "lingji1688";
+                            _phone.text = "15170298721";
+                            _pwd.text = "a123456";
                             _isPhoneSuffix = true;
                             _isPwdSuffix = true;
                             _isPwdFocus = false;

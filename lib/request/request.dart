@@ -65,7 +65,11 @@ httpRequest ({
     print("走默认get请求");
   }
   if (success != null) {
-    success(res.data);
+    if (res.data["code"] == 0) {
+      success(res.data);
+    } else {
+      myToast(msg: "${res.data["msg"]}");
+    }
   }
 }
 
@@ -122,7 +126,11 @@ ErrorEntity createErrorEntity({//异常判断
             break;
           case 503:
             res = ErrorEntity(code: 503,message: "服务器未启动");
-            codeMsg = "无权限";
+            codeMsg = "服务器未启动";
+            break;
+          case 602:
+            res = ErrorEntity(code: 602,message: "账号或密码错误");
+            codeMsg = "账号或密码错误";
             break;
           default:
             res = ErrorEntity(code: error.response.statusCode,message: "未知错误");

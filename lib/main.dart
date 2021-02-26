@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       ],
       //路由
       navigatorKey: Routers.navigatorKey,//路由关键字,用于没有页面方法调用路由(401)
-      initialRoute: '/dataAnalysis',//根路由
+      initialRoute: '/login',//根路由
       onGenerateRoute: Routers().onGenerateRoute,//路由方法
     );
   }

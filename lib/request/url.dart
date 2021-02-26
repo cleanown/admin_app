@@ -1,6 +1,7 @@
 import 'package:admin_app/utils/myToast.dart';
 
-final String baseUrl = "http://192.168.1.239:8001";
+final String baseUrl = "https://api.lingji168.com";
+// final String baseUrl = "http://192.168.1.239:8001";
 const Url = {
   //登录
   "login": "/api/oauth/token",//登录
@@ -14,5 +15,4 @@ String lingJi (String str) {
   } else {
     return baseUrl + Url[str];
   }
-
 }
