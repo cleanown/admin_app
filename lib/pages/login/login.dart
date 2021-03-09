@@ -233,7 +233,6 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-
   void _loginSubmit () async {
     if (_phone.text.isEmpty) {
       myToast(msg: "手机号不得为空");
